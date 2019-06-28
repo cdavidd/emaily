@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 class Header extends Component {
   renderContent() {
@@ -15,25 +16,32 @@ class Header extends Component {
       default:
         return (
           <li>
-            <a>Logout</a>
+            <a href="/api/logout">Logout</a>
           </li>
         );
     }
   }
   render() {
-    //console.log(this.props); 7.86
+    //7.86
+    //console.log(this.props);
     return (
       <nav>
         <div className="nav-weapper">
-          <a className="left brand-logo">Emaily</a>
+          <Link
+            to={this.props.auth ? "/surveys" : "/"}
+            className="left brand-logo"
+          >
+            Emaily
+          </Link>
           <ul className="right">{this.renderContent()}</ul>
         </div>
       </nav>
     );
   }
 }
-
-function mapStateToProps(auth) {
+//indiqua cómo transformar el estado actual del store Redux en los props que desea pasar a un componente de presentación.
+//function mapStateToProps( auth ) {
+function mapStateToProps({ auth }) {
   return { auth };
 }
 

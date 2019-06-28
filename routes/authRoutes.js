@@ -10,12 +10,19 @@ module.exports = app => {
     })
   );
   //direccion de retorno
-  app.get("/auth/google/callback", passport.authenticate("google"));
+  app.get(
+    "/auth/google/callback",
+    passport.authenticate("google"),
+    (req, res) => {
+      res.redirect("/surveys");
+    }
+  );
 
   app.get("/api/logout", (req, res) => {
     //toma lo cookie que contiende el id y mata la id que esta alli
     req.logout();
-    res.send(req.user);
+    //res.send(req.user);
+    res.redirect("/");
   });
 
   //req solicitud entrante
